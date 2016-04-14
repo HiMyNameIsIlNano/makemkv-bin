@@ -1,0 +1,24 @@
+--- Makefile.orig	2016-01-15 12:39:03.000000000 +0100
++++ Makefile	2016-04-14 07:06:47.325308000 +0200
+@@ -18,6 +18,12 @@
+ ARCH_OK=1
+ endif
+ 
++# Feebsd Specific
++ifeq ($(ARCH),amd64)
++ARCH=amd64
++ARCH_OK=1
++endif
++
+ ifneq ($(ARCH_OK),1)
+ $(error MakeMKV is currently not available for architecture $(ARCH))
+ endif
+@@ -30,7 +36,7 @@
+ 
+ tmp/eula_accepted:
+ 	@mkdir -p tmp
+-	@/bin/bash src/ask_eula.sh src/eula_en_linux.txt
++	@/bin/sh src/ask_eula.sh src/eula_en_linux.txt
+ 	@echo accepted > $@
+ 
+ install: tmp/eula_accepted bin/$(ARCH)/makemkvcon
